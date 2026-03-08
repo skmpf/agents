@@ -1,3 +1,8 @@
+---
+name: prd-to-issues
+description: Break a PRD into dependency-aware GitHub issues using thin vertical slices. Use when the user wants to turn a PRD into implementation issues, tracer bullets, or independently grabbable work items.
+---
+
 # PRD to Issues
 
 Break a PRD into independently-grabbable GitHub issues using vertical slices (tracer bullets).

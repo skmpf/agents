@@ -14,11 +14,20 @@ description: Create new agent skills with proper structure, progressive disclosu
    - Any reference materials to include?
 
 2. **Draft the skill** - create:
-   - SKILL.md with concise instructions
+   - `SKILL.md` with required YAML frontmatter at the very top of the file
    - Additional reference files if content exceeds 500 lines
    - Utility scripts if deterministic operations needed
+   - Frontmatter must be delimited by `---` and include both:
+     - `name: <skill-folder-name>`
+     - `description: <what it does>. Use when <specific triggers>.`
 
-3. **Review with user** - present draft and ask:
+3. **Validate the skill file** - before considering the skill complete, verify:
+   - The file starts with YAML frontmatter delimited by `---`
+   - `name` matches the skill directory name
+   - `description` is present and includes an explicit `Use when ...` trigger sentence
+   - The Markdown body begins after the closing `---`
+
+4. **Review with user** - present draft and ask:
    - Does this cover your use cases?
    - Anything missing or unclear?
    - Should any section be more/less detailed?
@@ -73,6 +82,14 @@ The description is **the only thing your agent sees** when deciding which skill 
 - First sentence: what it does
 - Second sentence: "Use when [specific triggers]"
 
+## Hard Requirements
+
+- Every `SKILL.md` must start with YAML frontmatter delimited by `---`
+- Frontmatter is not optional, even for very small skills
+- `name` should match the folder name exactly
+- `description` must tell the agent both capability and trigger conditions
+- Do not ship a skill until you have checked those fields explicitly
+
 **Good example**:
 
 ```
@@ -101,7 +118,7 @@ Scripts save tokens and improve reliability vs generated code.
 
 Split into separate files when:
 
-- SKILL.md exceeds 100 lines
+- SKILL.md is getting long enough that the main workflow stops being easy to scan; as a rule of thumb, split before it grows much past 150 lines
 - Content has distinct domains (finance vs sales schemas)
 - Advanced features are rarely needed
 
@@ -109,8 +126,11 @@ Split into separate files when:
 
 After drafting, verify:
 
+- [ ] File starts with YAML frontmatter delimited by `---`
+- [ ] Frontmatter includes `name` and `description`
+- [ ] `name` matches the skill folder name
 - [ ] Description includes triggers ("Use when...")
-- [ ] SKILL.md under 100 lines
+- [ ] SKILL.md stays concise; split rarely used detail into references before it grows much past 150 lines
 - [ ] No time-sensitive info
 - [ ] Consistent terminology
 - [ ] Concrete examples included
