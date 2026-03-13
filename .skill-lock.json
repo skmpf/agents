@@ -19,19 +19,20 @@
       "pluginName": "example-skills",
       "installedAt": "2026-03-08T09:35:00.749Z",
       "updatedAt": "2026-03-08T09:35:00.749Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "ef3abe1fe6f259718037dc6131d332c7571292c3",
+      "pluginName": "agent-browser",
+      "installedAt": "2026-03-11T09:42:09.743Z",
+      "updatedAt": "2026-03-11T09:42:09.743Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": [
-    "amp",
-    "cline",
-    "codex",
-    "cursor",
-    "gemini-cli",
-    "github-copilot",
-    "kimi-cli",
-    "opencode"
-  ]
+  "lastSelectedAgents": ["codex", "opencode", "openclaw"]
 }
