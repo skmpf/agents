@@ -1,0 +1,10 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+
+notify = ['zsh', '-lc', 'afplay /System/Library/Sounds/Purr.aiff; command -v nf >/dev/null 2>&1 && nf "Codex finished - $(basename "$PWD")" || true']
+
+[projects."/Users/seb/Projects/vinomemo"]
+trust_level = "trusted"
+
+[projects."/Users/seb/.openclaw"]
+trust_level = "trusted"
