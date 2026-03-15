@@ -13,8 +13,8 @@ export const NotificationPlugin = async ({
           .filter(Boolean)
           .pop();
 
-        await $`afplay /System/Library/Sounds/Purr.aiff`;
         await $`zsh -lc 'command -v nf >/dev/null 2>&1 && nf "OpenCode finished - ${repo}" || true'`;
+        await $`afplay /System/Library/Sounds/Purr.aiff`;
       }
     },
   };
