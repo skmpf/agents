@@ -6,9 +6,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-03-08T09:34:27.625Z",
-      "updatedAt": "2026-03-08T09:34:27.625Z"
+      "updatedAt": "2026-03-26T08:28:34.491Z"
     },
     "skill-creator": {
       "source": "anthropics/skills",
@@ -25,14 +25,17 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "ef3abe1fe6f259718037dc6131d332c7571292c3",
-      "pluginName": "agent-browser",
+      "skillFolderHash": "068bc465a3f22625f98a7996817feefcd18d772f",
       "installedAt": "2026-03-11T09:42:09.743Z",
-      "updatedAt": "2026-03-11T09:42:09.743Z"
+      "updatedAt": "2026-04-06T12:53:27.316Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": ["codex", "opencode", "openclaw"]
+  "lastSelectedAgents": [
+    "codex",
+    "opencode",
+    "openclaw"
+  ]
 }
