@@ -25,17 +25,13 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "068bc465a3f22625f98a7996817feefcd18d772f",
+      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
       "installedAt": "2026-03-11T09:42:09.743Z",
-      "updatedAt": "2026-04-06T12:53:27.316Z"
+      "updatedAt": "2026-04-17T04:06:49.242Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": [
-    "codex",
-    "opencode",
-    "openclaw"
-  ]
+  "lastSelectedAgents": ["codex", "github-copilot", "opencode", "pi"]
 }
