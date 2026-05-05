@@ -8,7 +8,7 @@
       "skillPath": "skills/find-skills/SKILL.md",
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-03-08T09:34:27.625Z",
-      "updatedAt": "2026-03-26T08:28:34.491Z"
+      "updatedAt": "2026-05-05T01:17:41.186Z"
     },
     "skill-creator": {
       "source": "anthropics/skills",
@@ -27,11 +27,36 @@
       "skillPath": "skills/agent-browser/SKILL.md",
       "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
       "installedAt": "2026-03-11T09:42:09.743Z",
-      "updatedAt": "2026-04-17T04:06:49.242Z"
+      "updatedAt": "2026-05-05T01:14:39.260Z"
+    },
+    "caveman": {
+      "source": "juliusbrussee/caveman",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/juliusbrussee/caveman.git",
+      "skillPath": "caveman/SKILL.md",
+      "skillFolderHash": "f524c391d466fe35e0bdbe9707854fcb2be52b26",
+      "installedAt": "2026-05-05T01:11:21.190Z",
+      "updatedAt": "2026-05-05T01:11:46.732Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": ["codex", "github-copilot", "opencode", "pi"]
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "dexto",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp",
+    "pi",
+    "openclaw"
+  ]
 }
