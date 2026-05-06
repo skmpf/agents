@@ -7,27 +7,8 @@
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
       "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
-      "installedAt": "2026-03-08T09:34:27.625Z",
-      "updatedAt": "2026-05-05T01:17:41.186Z"
-    },
-    "skill-creator": {
-      "source": "anthropics/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/anthropics/skills.git",
-      "skillPath": "skills/skill-creator/SKILL.md",
-      "skillFolderHash": "98a510d1cfef9f82c3b1eec200229ca68725e613",
-      "pluginName": "example-skills",
-      "installedAt": "2026-03-08T09:35:00.749Z",
-      "updatedAt": "2026-03-08T09:35:00.749Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
-      "installedAt": "2026-03-11T09:42:09.743Z",
-      "updatedAt": "2026-05-05T01:14:39.260Z"
+      "installedAt": "2026-05-06T04:19:18.659Z",
+      "updatedAt": "2026-05-06T04:19:21.478Z"
     },
     "caveman": {
       "source": "juliusbrussee/caveman",
@@ -35,8 +16,17 @@
       "sourceUrl": "https://github.com/juliusbrussee/caveman.git",
       "skillPath": "caveman/SKILL.md",
       "skillFolderHash": "f524c391d466fe35e0bdbe9707854fcb2be52b26",
-      "installedAt": "2026-05-05T01:11:21.190Z",
-      "updatedAt": "2026-05-05T01:11:46.732Z"
+      "installedAt": "2026-05-06T04:20:27.991Z",
+      "updatedAt": "2026-05-06T04:20:27.991Z"
+    },
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
+      "skillPath": "skills/agent-browser/SKILL.md",
+      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
+      "installedAt": "2026-05-06T04:20:52.104Z",
+      "updatedAt": "2026-05-06T04:20:52.104Z"
     }
   },
   "dismissed": {
@@ -56,7 +46,7 @@
     "kimi-cli",
     "opencode",
     "warp",
-    "pi",
-    "openclaw"
+    "openclaw",
+    "pi"
   ]
 }
