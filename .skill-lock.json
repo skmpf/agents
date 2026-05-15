@@ -24,9 +24,19 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
+      "skillFolderHash": "c1470a475a0472fceda2401ea6763708a91680a8",
       "installedAt": "2026-05-06T04:20:52.104Z",
-      "updatedAt": "2026-05-06T04:20:52.104Z"
+      "updatedAt": "2026-05-15T09:53:23.043Z"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/grill-me/SKILL.md",
+      "skillFolderHash": "2a1ad17028306ebe45f0e49703fa28b9b2e7f499",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-05-15T10:01:25.729Z",
+      "updatedAt": "2026-05-15T10:01:25.729Z"
     }
   },
   "dismissed": {
@@ -46,7 +56,6 @@
     "kimi-cli",
     "opencode",
     "warp",
-    "openclaw",
-    "pi"
+    "openclaw"
   ]
 }
