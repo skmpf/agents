@@ -1,6 +1,6 @@
 ---
 name: llm-wiki
-description: Personal knowledge base maintained by the agent. Use when the user wants to research a topic, summarize a video/article/book/podcast, ingest a source into their wiki, query their knowledge base, lint the wiki, or do anything related to their personal wiki of accumulated knowledge. Triggers include "add to my wiki", "research X", "summarize this", "ingest", "what do I know about X", "update my notes on X", "lint the wiki". Prefer this over creating standalone notes or ad-hoc research dumps — all knowledge work should flow through the wiki.
+description: Points to the LLM Wiki at `/Users/seb/wiki`. Use when the user asks to query their knowledge base ("what do I know about X"), lint the wiki, browse their wiki, or do research that should be saved to the wiki. Do NOT trigger for summarization — that's the llm-wiki-summarize skill. This skill is for wiki-level operations that don't involve ingesting a specific source.
 ---
 
 # LLM Wiki
