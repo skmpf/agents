@@ -1,9 +1,9 @@
 ---
-name: llm-wiki
-description: Points to the LLM Wiki at `/Users/seb/wiki`. Use when the user asks to query their knowledge base ("what do I know about X"), lint the wiki, browse their wiki, or do research that should be saved to the wiki. Do NOT trigger for summarization — that's the llm-wiki-summarize skill. This skill is for wiki-level operations that don't involve ingesting a specific source.
+name: wiki
+description: Points to the LLM Wiki at `/Users/seb/wiki`. Use when the user asks to query their knowledge base ("what do I know about X"), lint the wiki, browse their wiki, or do research that should be saved to the wiki. Do NOT trigger for summarization — that's the wiki-summarize skill. This skill is for wiki-level operations that don't involve ingesting a specific source.
 ---
 
-# LLM Wiki
+# Wiki
 
 A personal wiki at `/Users/seb/wiki` — an interconnected collection of markdown pages maintained by the agent. The agent reads sources, writes wiki pages, and keeps everything current.
 

@@ -1,10 +1,10 @@
 ---
-name: llm-wiki-summarize
+name: wiki-summarize
 description: Ingest content into the LLM Wiki. ONLY use when the user explicitly says `/wiki` or "add to wiki". Do NOT trigger for general summarization requests — those use the default summarize skill. When triggered, handles extraction, summarization with wikilinks, topic page creation, and full wiki maintenance.
 user_invocable: true
 ---
 
-# LLM Wiki — Summarize (Ingest)
+# Wiki — Summarize (Ingest)
 
 Ingests content into the LLM Wiki at `/Users/seb/wiki`. Takes any input — YouTube video, web article, PDF, EPUB book, podcast, lecture — and produces a rich, interlinked source page plus topic pages for every concept mentioned.
 
