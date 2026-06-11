@@ -2,22 +2,14 @@
   "version": 3,
   "skills": {
     "caveman": {
-      "source": "juliusbrussee/caveman",
+      "source": "mattpocock/skills",
       "sourceType": "github",
-      "sourceUrl": "https://github.com/juliusbrussee/caveman.git",
-      "skillPath": "caveman/SKILL.md",
-      "skillFolderHash": "f524c391d466fe35e0bdbe9707854fcb2be52b26",
-      "installedAt": "2026-05-06T04:20:27.991Z",
-      "updatedAt": "2026-05-06T04:20:27.991Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "c1470a475a0472fceda2401ea6763708a91680a8",
-      "installedAt": "2026-05-06T04:20:52.104Z",
-      "updatedAt": "2026-05-15T09:53:23.043Z"
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/caveman/SKILL.md",
+      "skillFolderHash": "17972a1bdbf5909b9dbdc435ad348f0bf45f8664",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-11T14:36:00.375Z",
+      "updatedAt": "2026-06-11T14:36:00.375Z"
     },
     "grill-me": {
       "source": "mattpocock/skills",
@@ -26,42 +18,66 @@
       "skillPath": "skills/productivity/grill-me/SKILL.md",
       "skillFolderHash": "2a1ad17028306ebe45f0e49703fa28b9b2e7f499",
       "pluginName": "mattpocock-skills",
-      "installedAt": "2026-05-15T10:01:25.729Z",
-      "updatedAt": "2026-05-16T05:31:57.974Z"
+      "installedAt": "2026-06-11T14:36:00.377Z",
+      "updatedAt": "2026-06-11T14:36:00.377Z"
     },
     "grill-with-docs": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
-      "skillFolderHash": "2c6aa7079cc705a6e0c319fcf23a0fa39968de29",
-      "installedAt": "2026-05-16T05:32:17.570Z",
-      "updatedAt": "2026-05-22T09:44:51.874Z"
+      "skillFolderHash": "2c3a4e48571bfe42203ed7b49cae85f31ef4b6f2",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-11T14:36:00.378Z",
+      "updatedAt": "2026-06-11T14:36:00.378Z"
     },
-    "handoff": {
+    "teach": {
       "source": "mattpocock/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/handoff/SKILL.md",
-      "skillFolderHash": "7bbb60d64c911617cee7f71b2ba9e24364faa14e",
+      "skillPath": "skills/productivity/teach/SKILL.md",
+      "skillFolderHash": "975430f7801bac2258ed18f4d80860024443b4f7",
       "pluginName": "mattpocock-skills",
-      "installedAt": "2026-05-22T16:55:15.920Z",
-      "updatedAt": "2026-05-22T16:55:15.920Z"
+      "installedAt": "2026-06-11T14:36:00.378Z",
+      "updatedAt": "2026-06-11T14:36:00.378Z"
+    },
+    "write-a-skill": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/productivity/write-a-skill/SKILL.md",
+      "skillFolderHash": "2f252b35aa238879afc5a230ac30343708dee0b3",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-06-11T14:36:00.379Z",
+      "updatedAt": "2026-06-11T14:36:00.379Z"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/vercel-labs/skills.git",
+      "skillPath": "skills/find-skills/SKILL.md",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "installedAt": "2026-06-11T14:36:03.644Z",
+      "updatedAt": "2026-06-11T14:36:03.644Z"
     }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
   },
   "lastSelectedAgents": [
     "amp",
     "antigravity",
+    "antigravity-cli",
     "cline",
     "codex",
     "cursor",
     "deepagents",
-    "dexto",
-    "firebender",
     "gemini-cli",
     "github-copilot",
-    "kimi-cli",
+    "kimi-code-cli",
     "opencode",
-    "warp"
+    "warp",
+    "zed",
+    "openclaw"
   ]
 }
