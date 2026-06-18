@@ -4,6 +4,9 @@ model_reasoning_effort = "medium"
 notify = ['zsh', '-lc', 'afplay /System/Library/Sounds/Purr.aiff']
 
 
+[projects."/Users/seb/Projects"]
+trust_level = "trusted"
+
 [projects."/Users/seb/Projects/vinomemo"]
 trust_level = "trusted"
 
