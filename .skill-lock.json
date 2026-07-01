@@ -35,9 +35,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
+      "skillFolderHash": "eb6a23305aea6e340d14b9de3766e721f9f4861b",
       "installedAt": "2026-06-11T14:36:03.644Z",
-      "updatedAt": "2026-06-11T14:36:03.644Z"
+      "updatedAt": "2026-07-01T13:37:56.984Z"
     },
     "handoff": {
       "source": "mattpocock/skills",
@@ -54,10 +54,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/writing-great-skills/SKILL.md",
-      "skillFolderHash": "9252419010c7944edb297aa79b3f61a338a4f1f2",
-      "pluginName": "mattpocock-skills",
+      "skillFolderHash": "0875ef784dfdf0a3860f1cdc3937c2796b0314a5",
       "installedAt": "2026-06-18T00:16:04.692Z",
-      "updatedAt": "2026-06-18T00:16:04.692Z"
+      "updatedAt": "2026-07-01T13:37:56.503Z"
     },
     "grilling": {
       "source": "mattpocock/skills",
