@@ -9,7 +9,7 @@
       "skillFolderHash": "8320e7b87f7b208f50ce165b1dd43d1e93c8e801",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-11T14:36:00.377Z",
-      "updatedAt": "2026-06-18T00:16:04.689Z"
+      "updatedAt": "2026-07-02T12:42:40.169Z"
     },
     "grill-with-docs": {
       "source": "mattpocock/skills",
@@ -28,7 +28,7 @@
       "skillFolderHash": "3b6a4245e2aaeacb308ba6175ab3e7f2e43b0c47",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-11T14:36:00.378Z",
-      "updatedAt": "2026-06-18T00:16:04.691Z"
+      "updatedAt": "2026-07-02T12:42:40.167Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
@@ -47,7 +47,7 @@
       "skillFolderHash": "aa82ffd61d7a3bda110060b4e24ec782b983cb8d",
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-12T12:52:52.943Z",
-      "updatedAt": "2026-06-18T00:22:29.506Z"
+      "updatedAt": "2026-07-02T12:42:40.170Z"
     },
     "writing-great-skills": {
       "source": "mattpocock/skills",
@@ -55,8 +55,9 @@
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/productivity/writing-great-skills/SKILL.md",
       "skillFolderHash": "0875ef784dfdf0a3860f1cdc3937c2796b0314a5",
+      "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-18T00:16:04.692Z",
-      "updatedAt": "2026-07-01T13:37:56.503Z"
+      "updatedAt": "2026-07-02T12:42:40.169Z"
     },
     "grilling": {
       "source": "mattpocock/skills",
@@ -72,20 +73,5 @@
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": [
-    "amp",
-    "antigravity",
-    "antigravity-cli",
-    "cline",
-    "codex",
-    "cursor",
-    "deepagents",
-    "gemini-cli",
-    "github-copilot",
-    "kimi-code-cli",
-    "opencode",
-    "warp",
-    "zed",
-    "openclaw"
-  ]
+  "lastSelectedAgents": ["codex", "cursor", "github-copilot", "pi"]
 }
