@@ -68,10 +68,33 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-06-18T00:22:29.504Z",
       "updatedAt": "2026-06-18T00:22:29.504Z"
+    },
+    "ponytail": {
+      "source": "dietrichgebert/ponytail",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/dietrichgebert/ponytail.git",
+      "skillPath": "skills/ponytail/SKILL.md",
+      "skillFolderHash": "f2a46af45b7c0a57edf990bd43ed2e79782c31ef",
+      "installedAt": "2026-07-04T17:03:05.588Z",
+      "updatedAt": "2026-07-04T17:03:05.588Z"
     }
   },
   "dismissed": {
     "findSkillsPrompt": true
   },
-  "lastSelectedAgents": ["codex", "cursor", "github-copilot", "pi"]
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "antigravity-cli",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-code-cli",
+    "opencode",
+    "warp",
+    "zed"
+  ]
 }
