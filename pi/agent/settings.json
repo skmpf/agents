@@ -1,0 +1,47 @@
+{
+  "lastChangelogVersion": "0.80.3",
+  "defaultProvider": "zai",
+  "defaultModel": "glm-5.2",
+  "defaultThinkingLevel": "medium",
+  "extensions": ["~/.pi/agent/extensions"],
+  "enabledModels": [
+    "zai/glm-5.1",
+    "zai/glm-5.2",
+    "github-copilot/gpt-5.4",
+    "github-copilot/gpt-5.5",
+    "openai-codex/gpt-5.4",
+    "openai-codex/gpt-5.5"
+  ],
+  "packages": [
+    "npm:pi-rtk-optimizer",
+    "npm:pi-web-access",
+    "npm:pi-intercom",
+    "npm:pi-subagents",
+    "npm:pi-prefer-rg"
+  ],
+  "subagents": {
+    "agentOverrides": {
+      "scout": {
+        "model": "zai/glm-5.2",
+        "thinking": "low"
+      },
+      "worker": {
+        "model": "zai/glm-5.2",
+        "thinking": "low"
+      },
+      "reviewer": {
+        "model": "zai/glm-5.2",
+        "thinking": "low"
+      },
+      "delegate": {
+        "model": "zai/glm-5.2",
+        "thinking": "low"
+      },
+      "context-builder": {
+        "model": "zai/glm-5.2",
+        "thinking": "low"
+      }
+    }
+  },
+  "theme": "dark"
+}
