@@ -1,0 +1,31 @@
+# ── Secrets ──────────────────────────────────────────────────────────────
+# API keys and OAuth tokens — never commit
+pi/agent/auth.json
+
+# ── Runtime state (machine-local, may hold private data) ─────────────────
+# Session transcripts
+pi/agent/sessions/
+# Intercom broker sockets/pids
+pi/agent/intercom/
+# Runtime logs
+pi/agent/logs/
+
+# ── Installed binaries & packages (not source) ───────────────────────────
+# pi-managed npm packages
+pi/agent/npm/
+# downloaded CLI binaries
+pi/agent/bin/
+
+# ── Env / credentials ────────────────────────────────────────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ── OS / editor junk ─────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
