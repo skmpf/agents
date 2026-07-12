@@ -9,6 +9,10 @@ pi/agent/sessions/
 pi/agent/intercom/
 # Runtime logs
 pi/agent/logs/
+# Trusted-directory decisions (absolute paths)
+pi/agent/trust.json
+# Run history
+pi/agent/run-history.jsonl
 
 # ── Installed binaries & packages (not source) ───────────────────────────
 # pi-managed npm packages
