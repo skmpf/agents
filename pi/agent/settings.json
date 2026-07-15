@@ -3,7 +3,10 @@
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
   "defaultThinkingLevel": "medium",
-  "extensions": ["~/.pi/agent/extensions"],
+  "extensions": [
+    "~/.pi/agent/extensions",
+    "~/.pi/agent/git/github.com/amosblomqvist/pi-subagents/index.ts"
+  ],
   "enabledModels": [
     "zai/glm-5.2",
     "openai-codex/gpt-5.6-luna",
