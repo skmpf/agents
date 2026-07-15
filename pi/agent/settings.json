@@ -8,15 +8,22 @@
     "zai/glm-5.2",
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
-    "openai-codex/gpt-5.6-terra"
+    "openai-codex/gpt-5.6-terra",
+    "github-copilot/gpt-5.5",
+    "github-copilot/claude-opus-4.8",
+    "github-copilot/claude-fable-5",
+    "lmstudio/ternary-bonsai-27b-mlx",
+    "lmstudio/qwen/qwen3.6-27b"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
     "npm:pi-web-access",
     "npm:pi-intercom",
     "npm:pi-subagents",
-    "npm:pi-prefer-rg"
+    "npm:pi-prefer-rg",
+    "npm:pi-mcp-adapter"
   ],
+  "skills": ["~/Projects/deezer/skills/skills"],
   "subagents": {
     "agentOverrides": {
       "scout": {

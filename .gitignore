@@ -1,6 +1,7 @@
 # ── Secrets ──────────────────────────────────────────────────────────────
 # API keys and OAuth tokens — never commit
 pi/agent/auth.json
+pi/agent/mcp/oauth/
 
 # ── Runtime state (machine-local, may hold private data) ─────────────────
 # Session transcripts
