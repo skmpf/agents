@@ -1,6 +1,0 @@
-{
-  "maxSubagentDepth": 1,
-  "intercomBridge": {
-    "mode": "always"
-  }
-}

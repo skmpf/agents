@@ -17,36 +17,10 @@
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
-    "npm:pi-web-access",
-    "npm:pi-intercom",
-    "npm:pi-subagents",
     "npm:pi-prefer-rg",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "git:github.com/DietrichGebert/ponytail"
   ],
   "skills": ["~/Projects/deezer/skills/skills"],
-  "subagents": {
-    "agentOverrides": {
-      "scout": {
-        "model": "zai/glm-5.2",
-        "thinking": "low"
-      },
-      "worker": {
-        "model": "zai/glm-5.2",
-        "thinking": "low"
-      },
-      "reviewer": {
-        "model": "zai/glm-5.2",
-        "thinking": "low"
-      },
-      "delegate": {
-        "model": "zai/glm-5.2",
-        "thinking": "low"
-      },
-      "context-builder": {
-        "model": "zai/glm-5.2",
-        "thinking": "low"
-      }
-    }
-  },
   "theme": "dark"
 }
