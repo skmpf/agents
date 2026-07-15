@@ -1,28 +1,22 @@
 # agents
 
-Git-versioned config for the [pi](https://pi.dev) agent harness, deployed with
-[GNU Stow](https://www.gnu.org/software/stow/).
-
-## Layout
+Cross-harness agent config, cloned to `~/.agents`. `AGENTS.md` and `skills/`
+are read by most harnesses by default; the `pi/` tree holds pi-specific config.
 
 ```
-AGENTS.md         global agent instructions (single source of truth)
-pi/agent/         stow package → ~/.pi/agent/
-  AGENTS.md       symlink → ../../AGENTS.md
-  settings.json
-  models.json
-  extensions/
-skills/           pi user skills (read natively from ~/.agents/skills)
+AGENTS.md     global agent instructions
+skills/       agent skills
+pi/agent/     pi config — symlink ~/.pi/agent → here
 ```
 
-## Install
+## pi
 
 ```
-git clone git@github.com:skmpf/agents.git ~/.agents
-stow --dir ~/.agents --target ~/.pi pi
+ln -s ../.agents/pi/agent ~/.pi/agent
 ```
 
-If `~/.pi/agent/` already contains real files, remove them first — stow won't
-overwrite existing files.
+Makes `~/.pi/agent` a single symlink into this repo, so the repo *is*
+`~/.pi/agent`. Remove an existing real `~/.pi/agent` first — `ln -s` won't
+replace an existing directory.
 
-Secrets (`auth.json`, sessions, installed packages) are not versioned.
+Secrets, dependencies, and runtime state are gitignored (see `.gitignore`).

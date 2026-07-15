@@ -1,32 +1,40 @@
-# ── Secrets ──────────────────────────────────────────────────────────────
-# API keys and OAuth tokens — never commit
-pi/agent/auth.json
-pi/agent/mcp/oauth/
+# ── Secrets (never commit) ───────────────────────────────────────────────
+# auth.json anywhere: top-level + per-extension (e.g. extensions/web-search/auth.json)
+auth.json
+pi/agent/mcp-oauth/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
 
-# ── Runtime state (machine-local, may hold private data) ─────────────────
+# ── Dependencies (regenerable, large) ────────────────────────────────────
+# node_modules inside extensions (e.g. web-fetch) — reinstalled from package.json
+node_modules/
+# pi-managed npm packages (npm:* entries in settings.json `packages`)
+pi/agent/npm/
+# downloaded CLI binaries
+pi/agent/bin/
+
+# ── Runtime state & caches (machine-local, may hold private data) ────────
 # Session transcripts
 pi/agent/sessions/
+# Run history
+pi/agent/run-history.jsonl
+# MCP tool-schema caches (regenerated on connect)
+pi/agent/mcp-cache.json
+pi/agent/mcp-npx-cache.json
+# MCP onboarding UI state
+pi/agent/mcp-onboarding.json
 # Intercom broker sockets/pids
 pi/agent/intercom/
 # Runtime logs
 pi/agent/logs/
 # Trusted-directory decisions (absolute paths)
 pi/agent/trust.json
-# Run history
-pi/agent/run-history.jsonl
 
-# ── Installed binaries & packages (not source) ───────────────────────────
-# pi-managed npm packages
-pi/agent/npm/
-# downloaded CLI binaries
-pi/agent/bin/
-
-# ── Env / credentials ────────────────────────────────────────────────────
-.env
-.env.*
-!.env.example
-*.pem
-*.key
+# ── Cloned repos for git: packages (regenerable from settings.json) ──────
+pi/agent/git/
 
 # ── OS / editor junk ─────────────────────────────────────────────────────
 .DS_Store
