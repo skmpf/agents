@@ -48,5 +48,6 @@
     "npm:@dietrichgebert/ponytail",
     "npm:pi-web-access"
   ],
+  "skills": ["~/Projects/deezer/skills/skills"],
   "theme": "dark"
 }
