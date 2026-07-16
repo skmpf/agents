@@ -5,20 +5,12 @@ function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export default function(pi) {
-  pi.on("agent_end", async (_event, ctx) => {
-    // Only the main agent notifies; subagents (single/chain/parallel/async) are suppressed.
-    if (process.env.PI_SUBAGENT_CHILD === "1") return;
-    try {
-      let idle = ctx.isIdle();
-      if (!idle) {
-        for (let i = 0; i < 10; i++) {
-          await sleep(300);
-          idle = ctx.isIdle();
-          if (idle) break;
-        }
-      }
+export default function (pi) {
+  // Only the main agent notifies; subagents (single/chain/parallel/async) are suppressed.
+  if (process.env.PI_SUBAGENT_CHILD === "1") return;
 
+  async function notify(ctx, prefix) {
+    try {
       // Branch + repo root in one git call. Falls back gracefully outside a repo.
       const git = await pi.exec(
         "git",
@@ -32,16 +24,34 @@ export default function(pi) {
       const host = os.hostname() || "unknown";
       const repo = toplevel ? path.basename(toplevel) : path.basename(ctx.cwd);
 
-      const parts = [`host:${host}`, `repo:${repo}`];
-      if (branchName) parts.push(`branch:${branchName}`);
-      const message = `Pi idle · ${parts.join(" · ")}`;
-
-      await pi.exec("nf", [message], {
+      const parts = [prefix, `host: ${host}`, `repo: ${repo}`];
+      if (branchName) parts.push(`branch: ${branchName}`);
+      await pi.exec("nf", [parts.join("\n")], {
         cwd: ctx.cwd,
         timeout: 15000,
       });
     } catch {
       // Best effort only, stay quiet if git/nf fails.
     }
+  }
+
+  pi.on("agent_end", async (_event, ctx) => {
+    let idle = ctx.isIdle();
+    if (!idle) {
+      for (let i = 0; i < 10; i++) {
+        await sleep(300);
+        idle = ctx.isIdle();
+        if (idle) break;
+      }
+    }
+    await notify(ctx, "Pi idle");
+  });
+
+  // Notify when pi asks a question, so a prompt idling in another window
+  // waiting for input isn't missed.
+  pi.on("tool_call", async (event, ctx) => {
+    if (event.toolName !== "ask_user_question") return;
+    const question = (event.input?.question || "").trim();
+    await notify(ctx, question ? `Pi asks: ${question}` : "Pi needs input");
   });
 }
