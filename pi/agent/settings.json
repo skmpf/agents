@@ -1,12 +1,9 @@
 {
-  "lastChangelogVersion": "0.80.7",
+  "lastChangelogVersion": "0.80.8",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
   "defaultThinkingLevel": "medium",
-  "extensions": [
-    "~/.pi/agent/extensions",
-    "~/.pi/agent/git/github.com/amosblomqvist/pi-subagents/index.ts"
-  ],
+  "extensions": ["~/.pi/agent/extensions"],
   "enabledModels": [
     "zai/glm-5.2",
     "openai-codex/gpt-5.6-luna",
@@ -20,8 +17,8 @@
     "npm:pi-rtk-optimizer",
     "npm:pi-prefer-rg",
     "npm:pi-mcp-adapter",
-    "git:github.com/DietrichGebert/ponytail",
-    "https://github.com/amosblomqvist/pi-subagents"
+    "npm:pi-subagents",
+    "npm:@dietrichgebert/ponytail"
   ],
   "theme": "dark"
 }

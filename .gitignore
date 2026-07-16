@@ -24,6 +24,8 @@ pi/agent/run-history.jsonl
 # MCP tool-schema caches (regenerated on connect)
 pi/agent/mcp-cache.json
 pi/agent/mcp-npx-cache.json
+# Provider model catalog cache (regenerated on refresh)
+pi/agent/models-store.json
 # MCP onboarding UI state
 pi/agent/mcp-onboarding.json
 # Intercom broker sockets/pids
