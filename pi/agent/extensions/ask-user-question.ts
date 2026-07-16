@@ -124,6 +124,19 @@ function addWrapped(lines: string[], text: string, width: number, indent = ""): 
 	}
 }
 
+// Scroll a flat list of rendered lines so `focusLine` stays in view within `height`.
+// Used by the inline question UI so tall prompts (many options / long details) never
+// take over the whole screen and always keep the focused item visible.
+function windowLines(lines: string[], focusLine: number, height: number, prevOffset: number): { view: string[]; offset: number } {
+	if (lines.length <= height) return { view: lines, offset: 0 };
+	const maxOffset = lines.length - height;
+	let offset = Math.max(0, Math.min(prevOffset, maxOffset));
+	if (focusLine < offset) offset = focusLine;
+	else if (focusLine > offset + height - 1) offset = focusLine - height + 1;
+	offset = Math.max(0, Math.min(offset, maxOffset));
+	return { view: lines.slice(offset, offset + height), offset };
+}
+
 function formatAnswerForModel(answer: AskAnswer): string {
 	switch (answer.type) {
 		case "text":
@@ -215,6 +228,9 @@ async function askSingleChoice(
 	return ctx.ui.custom<AskAnswer | null>((tui: any, theme: any, _kb: any, done: (result: AskAnswer | null) => void) => {
 		let optionIndex = 0;
 		let editMode = false;
+		let scrollOffset = 0;
+		let cachedWidth = 0;
+		let cachedHeight = 0;
 		let cachedLines: string[] | undefined;
 		const editor = new Editor(tui, createEditorTheme(theme));
 
@@ -274,10 +290,13 @@ async function askSingleChoice(
 		}
 
 		function render(width: number): string[] {
-			if (cachedLines) return cachedLines;
+			const termHeight = tui.terminal?.rows ?? 24;
+			if (cachedLines && cachedWidth === width && cachedHeight === termHeight) return cachedLines;
 
 			const lines: string[] = [];
 			const add = (text: string) => lines.push(truncateToWidth(text, width));
+			let focusLine = 0;
+			let editorLine = 0;
 
 			add(theme.fg("accent", "─".repeat(width)));
 			addWrapped(lines, theme.fg("text", ` ${question}`), width);
@@ -290,6 +309,7 @@ async function askSingleChoice(
 			for (let i = 0; i < allOptions.length; i++) {
 				const option = allOptions[i];
 				const selected = i === optionIndex;
+				if (selected) focusLine = lines.length;
 				const prefix = selected ? theme.fg("accent", "> ") : "  ";
 				const label = option.isOther ? option.label : `${option.index}. ${option.label}`;
 				const styled = selected ? theme.fg("accent", label) : theme.fg("text", label);
@@ -301,6 +321,7 @@ async function askSingleChoice(
 
 			if (editMode) {
 				lines.push("");
+				editorLine = lines.length;
 				add(theme.fg("muted", " Write your custom answer:"));
 				for (const line of editor.render(Math.max(1, width - 2))) {
 					add(` ${line}`);
@@ -313,8 +334,14 @@ async function askSingleChoice(
 			}
 
 			add(theme.fg("accent", "─".repeat(width)));
-			cachedLines = lines;
-			return lines;
+
+			const maxHeight = Math.max(8, Math.floor(termHeight * 0.6));
+			const { view, offset } = windowLines(lines, editMode ? editorLine : focusLine, maxHeight, scrollOffset);
+			scrollOffset = offset;
+			cachedLines = view;
+			cachedWidth = width;
+			cachedHeight = termHeight;
+			return view;
 		}
 
 		return {
@@ -349,6 +376,9 @@ async function askMultiChoice(
 	return ctx.ui.custom<AskAnswer[] | null>((tui: any, theme: any, _kb: any, done: (result: AskAnswer[] | null) => void) => {
 		let optionIndex = 0;
 		let editMode = false;
+		let scrollOffset = 0;
+		let cachedWidth = 0;
+		let cachedHeight = 0;
 		let cachedLines: string[] | undefined;
 		const selected = new Map<string, AskAnswer>();
 		const editor = new Editor(tui, createEditorTheme(theme));
@@ -445,10 +475,13 @@ async function askMultiChoice(
 		}
 
 		function render(width: number): string[] {
-			if (cachedLines) return cachedLines;
+			const termHeight = tui.terminal?.rows ?? 24;
+			if (cachedLines && cachedWidth === width && cachedHeight === termHeight) return cachedLines;
 
 			const lines: string[] = [];
 			const add = (text: string) => lines.push(truncateToWidth(text, width));
+			let focusLine = 0;
+			let editorLine = 0;
 
 			add(theme.fg("accent", "─".repeat(width)));
 			addWrapped(lines, theme.fg("text", ` ${question}`), width);
@@ -461,6 +494,7 @@ async function askMultiChoice(
 			for (let i = 0; i < allItems.length; i++) {
 				const item = allItems[i];
 				const isFocused = i === optionIndex;
+				if (isFocused) focusLine = lines.length;
 				const prefix = isFocused ? theme.fg("accent", "> ") : "  ";
 
 				if (item.isSubmit) {
@@ -497,6 +531,7 @@ async function askMultiChoice(
 
 			if (editMode) {
 				lines.push("");
+				editorLine = lines.length;
 				add(theme.fg("muted", " Write your custom answer:"));
 				for (const line of editor.render(Math.max(1, width - 2))) {
 					add(` ${line}`);
@@ -512,8 +547,14 @@ async function askMultiChoice(
 			}
 
 			add(theme.fg("accent", "─".repeat(width)));
-			cachedLines = lines;
-			return lines;
+
+			const maxHeight = Math.max(8, Math.floor(termHeight * 0.6));
+			const { view, offset } = windowLines(lines, editMode ? editorLine : focusLine, maxHeight, scrollOffset);
+			scrollOffset = offset;
+			cachedLines = view;
+			cachedWidth = width;
+			cachedHeight = termHeight;
+			return view;
 		}
 
 		return {
