@@ -229,6 +229,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-07-16T15:39:57.311Z",
       "updatedAt": "2026-07-16T15:39:57.311Z"
+    },
+    "qa": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/deprecated/qa/SKILL.md",
+      "skillFolderHash": "f63fde811a0215ab15f5b83bcaae9627ecacbe8e",
+      "installedAt": "2026-07-16T19:18:03.863Z",
+      "updatedAt": "2026-07-16T19:18:03.863Z"
     }
   },
   "dismissed": {
