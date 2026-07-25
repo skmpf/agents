@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.80.10",
+  "lastChangelogVersion": "0.82.1",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
   "defaultThinkingLevel": "medium",
@@ -11,16 +11,17 @@
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-terra",
-    "github-copilot/gpt-5.5",
-    "github-copilot/claude-opus-4.8",
-    "github-copilot/claude-fable-5"
+    "github-copilot/gpt-5.6-luna",
+    "github-copilot/gpt-5.6-terra",
+    "github-copilot/gpt-5.6-sol"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
     "npm:pi-prefer-rg",
     "npm:pi-mcp-adapter",
     "npm:pi-subagents",
-    "npm:@dietrichgebert/ponytail"
+    "npm:@dietrichgebert/ponytail",
+    "npm:pi-web-access"
   ],
   "theme": "dark"
 }
