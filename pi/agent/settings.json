@@ -1,24 +1,24 @@
 {
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.2",
   "defaultThinkingLevel": "medium",
   "subagents": {
     "agentOverrides": {
       "scout": {
-        "model": "zai/glm-5.2",
+        "model": "zai/glm-5-turbo",
         "thinking": "off"
       },
       "delegate": {
-        "model": "zai/glm-5.2",
+        "model": "zai/glm-5-turbo",
         "thinking": "off"
       },
       "context-builder": {
-        "model": "zai/glm-5.2",
+        "model": "zai/glm-5-turbo",
         "thinking": "low"
       },
       "researcher": {
-        "model": "zai/glm-5.2",
+        "model": "zai/glm-5-turbo",
         "thinking": "low"
       }
     }
@@ -27,19 +27,20 @@
   "enabledModels": [
     "zai/glm-5.2",
     "zai/glm-5-turbo",
-    "zai/glm-5v-turbo",
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-terra",
+    "openai-codex/gpt-5.4-mini",
     "github-copilot/gpt-5.6-luna",
     "github-copilot/gpt-5.6-sol",
     "github-copilot/gpt-5.6-terra",
+    "github-copilot/gpt-5.4-mini",
     "omlx/Qwen3-8B-4bit"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
     "npm:pi-prefer-rg",
-    "npm:pi-mcp-adapter",
+    "npm:pi-mcp-adapter@2.11.0",
     "npm:pi-subagents",
     "npm:@dietrichgebert/ponytail",
     "npm:pi-web-access",
