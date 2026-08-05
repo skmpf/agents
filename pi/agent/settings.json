@@ -23,7 +23,9 @@
       }
     }
   },
-  "extensions": ["~/.pi/agent/extensions"],
+  "extensions": [
+    "~/.pi/agent/extensions"
+  ],
   "enabledModels": [
     "zai/glm-5.2",
     "zai/glm-5-turbo",
