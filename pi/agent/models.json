@@ -1,5 +1,28 @@
 {
   "providers": {
+    "zai": {
+      "models": [
+        {
+          "id": "glm-4.6v",
+          "name": "GLM-4.6V",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 128000,
+          "maxTokens": 32768,
+          "compat": {
+            "maxTokensField": "max_tokens",
+            "thinkingFormat": "zai",
+            "zaiToolStream": true
+          },
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
     "omlx": {
       "baseUrl": "http://localhost:8000/v1",
       "api": "openai-completions",

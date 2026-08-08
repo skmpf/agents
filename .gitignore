@@ -30,6 +30,8 @@ pi/agent/models-store.json
 pi/agent/mcp-onboarding.json
 # Intercom broker sockets/pids
 pi/agent/intercom/
+# Mission records (machine-local)
+pi/agent/missions/
 # Runtime logs
 pi/agent/logs/
 # Trusted-directory decisions (absolute paths)
