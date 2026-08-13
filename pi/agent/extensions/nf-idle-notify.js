@@ -46,12 +46,4 @@ export default function (pi) {
     }
     await notify(ctx, "Pi idle");
   });
-
-  // Notify when pi asks a question, so a prompt idling in another window
-  // waiting for input isn't missed.
-  pi.on("tool_call", async (event, ctx) => {
-    if (event.toolName !== "ask_user_question") return;
-    const question = (event.input?.question || "").trim();
-    await notify(ctx, question ? `Pi asks: ${question}` : "Pi needs input");
-  });
 }
