@@ -36,6 +36,8 @@ pi/agent/missions/
 pi/agent/logs/
 # Trusted-directory decisions (absolute paths)
 pi/agent/trust.json
+# Extension runtime state (notify on/off toggle)
+pi/agent/extensions/.notify-state
 
 # ── Cloned repos for git: packages (regenerable from settings.json) ──────
 pi/agent/git/

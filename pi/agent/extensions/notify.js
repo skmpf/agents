@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 
@@ -9,7 +10,7 @@ export default function (pi) {
   // Only the main agent notifies; subagents (single/chain/parallel/async) are suppressed.
   if (process.env.PI_SUBAGENT_CHILD === "1") return;
 
-  async function notify(ctx, prefix) {
+  async function sendNf(ctx, prefix) {
     try {
       // Branch + repo root in one git call. Falls back gracefully outside a repo.
       const git = await pi.exec(
@@ -35,7 +36,35 @@ export default function (pi) {
     }
   }
 
+  const stateFile = new URL("./.notify-state", import.meta.url);
+  let enabled = true;
+  try {
+    enabled = fs.readFileSync(stateFile, "utf8").trim() !== "false";
+  } catch {
+    // No state file yet: default on.
+  }
+
+  pi.registerCommand("notify", {
+    description: "Enable/disable nf idle notifications (on|off, or toggle)",
+    handler: async (args, ctx) => {
+      const arg = (args || "").trim().toLowerCase();
+      if (arg === "on") enabled = true;
+      else if (arg === "off") enabled = false;
+      else if (arg === "") enabled = !enabled;
+      else {
+        ctx.ui.notify("Usage: /notify on|off (no argument toggles)", "warn");
+        return;
+      }
+      fs.writeFileSync(stateFile, String(enabled));
+      ctx.ui.notify(
+        `Idle notifications ${enabled ? "enabled" : "disabled"}`,
+        "info",
+      );
+    },
+  });
+
   pi.on("agent_end", async (_event, ctx) => {
+    if (!enabled) return;
     let idle = ctx.isIdle();
     if (!idle) {
       for (let i = 0; i < 10; i++) {
@@ -44,6 +73,6 @@ export default function (pi) {
         if (idle) break;
       }
     }
-    await notify(ctx, "Pi idle");
+    await sendNf(ctx, "Pi idle");
   });
 }
