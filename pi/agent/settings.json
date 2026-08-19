@@ -23,7 +23,9 @@
       }
     }
   },
-  "extensions": ["~/.pi/agent/extensions"],
+  "extensions": [
+    "~/.pi/agent/extensions"
+  ],
   "enabledModels": [
     "zai/glm-5.3",
     "zai/glm-5.2",
@@ -36,8 +38,7 @@
     "github-copilot/gpt-5.6-luna",
     "github-copilot/gpt-5.6-sol",
     "github-copilot/gpt-5.6-terra",
-    "github-copilot/gpt-5.4-mini",
-    "omlx/Qwen3-8B-4bit"
+    "github-copilot/gpt-5.4-mini"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
