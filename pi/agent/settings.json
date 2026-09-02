@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.84.3",
+  "lastChangelogVersion": "0.84.4",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.3",
   "defaultThinkingLevel": "high",
@@ -25,18 +25,15 @@
   },
   "extensions": ["~/.pi/agent/extensions"],
   "enabledModels": [
-    "lmstudio/qwen3.8-27b-mlx",
     "zai/glm-5.3",
     "zai/glm-4.6v",
     "zai/glm-5-turbo",
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-terra",
-    "openai-codex/gpt-5.4-mini",
     "github-copilot/gpt-5.6-luna",
     "github-copilot/gpt-5.6-sol",
-    "github-copilot/gpt-5.6-terra",
-    "github-copilot/gpt-5.4-mini"
+    "github-copilot/gpt-5.6-terra"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
