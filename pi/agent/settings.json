@@ -1,33 +1,34 @@
 {
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.3",
   "defaultThinkingLevel": "high",
   "subagents": {
     "agentOverrides": {
       "scout": {
-        "model": "zai/glm-5-turbo",
+        "model": "zai/glm-5.3-flash",
         "thinking": "off"
       },
       "delegate": {
-        "model": "zai/glm-5-turbo",
+        "model": "zai/glm-5.3-flash",
         "thinking": "off"
       },
       "context-builder": {
-        "model": "zai/glm-5-turbo",
+        "model": "zai/glm-5.3-flash",
         "thinking": "low"
       },
       "researcher": {
-        "model": "zai/glm-5-turbo",
+        "model": "zai/glm-5.3-flash",
         "thinking": "low"
       }
     }
   },
-  "extensions": ["~/.pi/agent/extensions"],
+  "extensions": [
+    "~/.pi/agent/extensions"
+  ],
   "enabledModels": [
     "zai/glm-5.3",
-    "zai/glm-4.6v",
-    "zai/glm-5-turbo",
+    "zai/glm-5.3-flash",
     "openai-codex/gpt-5.6-luna",
     "openai-codex/gpt-5.6-sol",
     "openai-codex/gpt-5.6-terra",
