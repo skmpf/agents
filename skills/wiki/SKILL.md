@@ -6,3 +6,7 @@ description: Query, lint, or browse the LLM Wiki at ~/wiki — "what do I know a
 # Wiki
 
 Every wiki operation starts by reading `~/wiki/AGENTS.md` — the full schema: directory structure, page conventions, ingest/query/lint workflows, and rules. It is the source of truth; this skill only routes you there.
+
+When creating or editing comparison pages:
+- Use a simple slug name only (e.g. `rennes-fibre-electricite-assurance-habitation.md`), never a date prefix.
+- Do NOT write directly to wiki pages before confirming the approach with the user — always discuss the page structure, content, and location first.
