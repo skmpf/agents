@@ -27,8 +27,6 @@
   "enabledModels": [
     "zai/glm-5.3",
     "zai/glm-5.3-flash",
-    "github-copilot/gpt-6-luna",
-    "github-copilot/gpt-6-sol",
     "openai-codex/gpt-6-luna",
     "openai-codex/gpt-6-sol"
   ],
