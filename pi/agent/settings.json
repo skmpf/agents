@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.1",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.3-flash",
   "defaultThinkingLevel": "high",
@@ -23,7 +23,9 @@
       }
     }
   },
-  "extensions": ["~/.pi/agent/extensions"],
+  "extensions": [
+    "~/.pi/agent/extensions"
+  ],
   "enabledModels": [
     "zai/glm-5.3",
     "zai/glm-5.3-flash",
@@ -33,7 +35,7 @@
   "packages": [
     "npm:pi-rtk-optimizer",
     "npm:pi-prefer-rg",
-    "npm:pi-mcp-adapter@2.11.0",
+    "npm:pi-mcp-adapter",
     "npm:pi-subagents",
     "npm:@dietrichgebert/ponytail",
     "npm:pi-web-access"
