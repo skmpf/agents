@@ -28,6 +28,10 @@ pi/agent/mcp-npx-cache.json
 pi/agent/models-store.json
 # MCP onboarding UI state
 pi/agent/mcp-onboarding.json
+# MCP adapter config (machine-local server URLs)
+pi/agent/mcp-adapter.json
+# Per-project MCP tool approvals (absolute paths, timestamps)
+pi/agent/mcp-project-approvals.json
 # Intercom broker sockets/pids
 pi/agent/intercom/
 # Mission records (machine-local)
