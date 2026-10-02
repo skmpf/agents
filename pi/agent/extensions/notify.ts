@@ -1,16 +1,17 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
+export default function (pi: ExtensionAPI) {
+  // Subagent suppression: pi-subagents foreground children never load the
+  // parent's ambient extensions and background runners spawn with --no-extensions,
+  // so this factory only runs in the main session. PI_SUBAGENT_PARENT_SESSION
+  // marks detached runner processes; guard anyway in case this file is ever
+  // loaded there explicitly.
+  if (process.env.PI_SUBAGENT_PARENT_SESSION) return;
 
-export default function (pi) {
-  // Only the main agent notifies; subagents (single/chain/parallel/async) are suppressed.
-  if (process.env.PI_SUBAGENT_CHILD === "1") return;
-
-  async function sendNf(ctx, prefix) {
+  async function sendNf(ctx: ExtensionContext, prefix: string) {
     try {
       // Branch + repo root in one git call. Falls back gracefully outside a repo.
       const git = await pi.exec(
@@ -27,10 +28,7 @@ export default function (pi) {
 
       const parts = [prefix, `host: ${host}`, `repo: ${repo}`];
       if (branchName) parts.push(`branch: ${branchName}`);
-      await pi.exec("nf", [parts.join("\n")], {
-        cwd: ctx.cwd,
-        timeout: 15000,
-      });
+      await pi.exec("nf", [parts.join("\n")], { cwd: ctx.cwd, timeout: 15000 });
     } catch {
       // Best effort only, stay quiet if git/nf fails.
     }
@@ -52,7 +50,7 @@ export default function (pi) {
       else if (arg === "off") enabled = false;
       else if (arg === "") enabled = !enabled;
       else {
-        ctx.ui.notify("Usage: /notify on|off (no argument toggles)", "warn");
+        ctx.ui.notify("Usage: /notify on|off (no argument toggles)", "warning");
         return;
       }
       fs.writeFileSync(stateFile, String(enabled));
@@ -63,16 +61,12 @@ export default function (pi) {
     },
   });
 
-  pi.on("agent_end", async (_event, ctx) => {
+  // agent_settled fires only when no automatic retry, compaction recovery, or
+  // queued continuation remains — the true "main agent idle" moment. No polling.
+  pi.on("agent_settled", async (_event, ctx) => {
     if (!enabled) return;
-    let idle = ctx.isIdle();
-    if (!idle) {
-      for (let i = 0; i < 10; i++) {
-        await sleep(300);
-        idle = ctx.isIdle();
-        if (idle) break;
-      }
-    }
+    if (ctx.mode !== "tui") return; // headless rpc/json/print runs don't ping the desktop
+    if (!ctx.isIdle()) return; // belt-and-braces alongside agent_settled
     await sendNf(ctx, "Pi idle");
   });
 }
