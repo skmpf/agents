@@ -28,12 +28,8 @@ pi/agent/models-store.json
 pi/agent/mcp.json
 # pi-subagents extension runtime state (last-seen-version, notices)
 pi/agent/pi-subagents/
-# Intercom broker sockets/pids
-pi/agent/intercom/
 # Mission records (machine-local)
 pi/agent/missions/
-# Runtime logs
-pi/agent/logs/
 # Trusted-directory decisions (absolute paths)
 pi/agent/trust.json
 # Extension runtime state (notify on/off toggle)
