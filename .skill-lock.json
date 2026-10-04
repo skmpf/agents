@@ -279,6 +279,15 @@
       "pluginName": "mattpocock-skills",
       "installedAt": "2026-10-02T05:53:26.547Z",
       "updatedAt": "2026-10-02T05:53:26.547Z"
+    },
+    "typesafe-ai": {
+      "source": "typesafe-ai/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/typesafe-ai/skills.git",
+      "skillPath": "skills/typesafe-ai/SKILL.md",
+      "skillFolderHash": "678c375b883794bf4292715a43acbba5c84681aa",
+      "installedAt": "2026-10-04T14:11:23.021Z",
+      "updatedAt": "2026-10-04T14:11:23.021Z"
     }
   },
   "dismissed": {
