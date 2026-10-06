@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.2",
+  "lastChangelogVersion": "1.0.4",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.3-flash",
   "defaultThinkingLevel": "high",
@@ -10,7 +10,11 @@
     "zai/glm-5.3",
     "zai/glm-5.3-flash",
     "openai-codex/gpt-6-luna",
-    "openai-codex/gpt-6.1-sol"
+    "openai-codex/gpt-6.1-sol",
+    "claude-bridge/claude-fable-5-1",
+    "claude-bridge/claude-opus-5-5",
+    "claude-bridge/claude-sonnet-5-5",
+    "claude-bridge/claude-haiku-4-5"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
@@ -18,7 +22,11 @@
     "npm:pi-subagents",
     "npm:@dietrichgebert/ponytail",
     "npm:pi-web-access",
-    "npm:@juicesharp/rpiv-ask-user-question"
+    "npm:@juicesharp/rpiv-ask-user-question",
+    "npm:pi-claude-bridge"
+  ],
+  "skills": [
+    "~/Projects/deezer/skills/skills"
   ],
   "subagents": {
     "agentOverrides": {

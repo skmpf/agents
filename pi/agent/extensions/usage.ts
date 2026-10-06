@@ -1,15 +1,20 @@
-// /usage — show remaining z.ai (GLM) and OpenAI Codex quota
+// /usage — show remaining z.ai (GLM), OpenAI Codex, and Claude Code quota
 // with reset times in local time. Sources:
 //   z.ai:    GET https://api.z.ai/api/monitor/usage/quota/limit  (Bearer zai.key)
 //   Codex:   GET https://chatgpt.com/backend-api/wham/usage      (Bearer access token, refreshed via auth.openai.com)
+//   Claude:  GET https://api.anthropic.com/api/oauth/usage       (Bearer Claude Code OAuth token; the same
+//            subscription quota pi-claude-bridge consumes by spawning Claude Code)
 import type { ExtensionAPI, ExtensionCommandContext } from "@earendil-works/pi-coding-agent";
 import { readFileSync, writeFileSync, renameSync, statSync, chmodSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { homedir } from "node:os";
 import { join } from "node:path";
 
 const ZAI_URL = "https://api.z.ai/api/monitor/usage/quota/limit";
 const TOKEN_URL = "https://auth.openai.com/oauth/token";
 const USAGE_URL = "https://chatgpt.com/backend-api/wham/usage";
+const CLAUDE_USAGE_URL = "https://api.anthropic.com/api/oauth/usage";
+const CLAUDE_OAUTH_BETA = "oauth-2025-04-20";
 const CODEX_CLIENT_ID = "app_EMoamEEZ73f0CkXaXp7hrann";
 const TIMEOUT_MS = 10_000;
 const REFRESH_MARGIN_MS = 60 * 60 * 1000;
@@ -163,10 +168,65 @@ async function fetchCodex(): Promise<ProviderQuota> {
   return { name: `Codex ChatGPT (${j.plan_type ?? "?"})`, windows, warning: codexWriteWarning };
 }
 
+// ─── Claude Code (quota shared with pi-claude-bridge) ───────
+/** Claude Code's OAuth token: macOS keeps it in the login keychain, other
+ *  platforms in ~/.claude/.credentials.json. Claude Code refreshes and rotates
+ *  it itself (the bridge spawns Claude Code, so it stays fresh) — we only read. */
+function readClaudeOauth(): { accessToken: string; tier?: string } {
+  let raw: string;
+  try {
+    raw = process.platform === "darwin"
+      ? execFileSync("security", ["find-generic-password", "-s", "Claude Code-credentials", "-w"],
+          { encoding: "utf-8", timeout: TIMEOUT_MS, stdio: ["ignore", "pipe", "ignore"] })
+      : readFileSync(join(homedir(), ".claude", ".credentials.json"), "utf-8");
+  } catch (err: any) {
+    throw new Error(`cannot read Claude Code credentials (${String(err?.message ?? err).slice(0, 80)}) — run \`claude\` and log in`);
+  }
+  const oauth = JSON.parse(raw)?.claudeAiOauth;
+  if (!oauth?.accessToken) throw new Error("no claudeAiOauth.accessToken — run `claude` and log in");
+  return { accessToken: oauth.accessToken, tier: oauth.rateLimitTier ?? oauth.subscriptionType };
+}
+
+/** Rate-limit windows report utilization as a 0–1 fraction; extra_usage already as percent.
+ *  Normalizes either to a whole percent for display. */
+function claudePct(v: number): number {
+  return Math.round(v <= 1 ? v * 100 : v);
+}
+
+async function fetchClaude(): Promise<ProviderQuota> {
+  const { accessToken, tier } = readClaudeOauth();
+  const j = await getJson(CLAUDE_USAGE_URL, {
+    Authorization: `Bearer ${accessToken}`,
+    "anthropic-beta": CLAUDE_OAUTH_BETA, // endpoint 401s without it
+  });
+  const windows: QuotaWindow[] = [];
+  // Plans without a given window report it as null (e.g. credits-based tiers).
+  for (const [key, label] of [["five_hour", "5h"], ["seven_day", "Weekly"]] as const) {
+    const w = j[key];
+    if (!w || typeof w.utilization !== "number") continue;
+    windows.push({ label, usedPct: claudePct(w.utilization), reset: w.resets_at ? fmtReset(Date.parse(w.resets_at)) : "?" });
+  }
+  const eu = j.extra_usage;
+  if (eu?.is_enabled && typeof eu.utilization === "number") {
+    const dp = eu.decimal_places ?? 2;
+    const sym = eu.currency === "USD" ? "$" : eu.currency ? `${eu.currency} ` : "";
+    const fmt = (v: number) => `${sym}${(v / 10 ** dp).toFixed(dp)}`;
+    const monthly = (j.limits ?? []).find((l: any) => l?.is_active && Date.parse(l.resets_at));
+    windows.push({
+      label: "Extra credits",
+      usedPct: claudePct(eu.utilization),
+      note: `${fmt(eu.used_credits)} of ${fmt(eu.monthly_limit)}`,
+      reset: monthly ? fmtReset(Date.parse(monthly.resets_at)) : "",
+    });
+    if (eu.spend_limit_reached) windows.push({ label: "credit limit", usedPct: 100, reset: "—" });
+  }
+  return { name: `Claude Code (${tier ?? "?"})`, windows };
+}
+
 // ─── command ─────────────────────────────────────────────────
 async function quotaReport(): Promise<string> {
-  const names = ["z.ai", "Codex"];
-  const results = await Promise.allSettled([fetchZai(), fetchCodex()]);
+  const names = ["z.ai", "Codex", "Claude"];
+  const results = await Promise.allSettled([fetchZai(), fetchCodex(), fetchClaude()]);
   const lines: string[] = ["Quota"];
   results.forEach((r, i) => {
     if (r.status === "rejected") {
@@ -195,5 +255,5 @@ export default function (pi: ExtensionAPI) {
       ctx.ui.notify(`quota: ${err.message}`, "error");
     }
   };
-  pi.registerCommand("usage", { description: "Show z.ai / Codex usage and reset times", handler });
+  pi.registerCommand("usage", { description: "Show z.ai / Codex / Claude Code usage and reset times", handler });
 }

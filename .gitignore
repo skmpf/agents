@@ -1,7 +1,8 @@
 # ── Secrets (never commit) ───────────────────────────────────────────────
 # auth.json anywhere: top-level + per-extension (e.g. extensions/web-search/auth.json)
 auth.json
-# MCP OAuth credentials, stored per server name + URL (pi 1.0.0+)
+# MCP OAuth credentials, stored per server name
+pi/agent/mcp-oauth/
 pi/agent/mcp-auth.json
 .env
 .env.*
@@ -34,6 +35,12 @@ pi/agent/missions/
 pi/agent/trust.json
 # Extension runtime state (notify on/off toggle)
 pi/agent/extensions/.notify-state
+# MCP server/tool discovery cache (regenerated on connect)
+pi/agent/mcp-cache.json
+# MCP first-run onboarding state (machine-local)
+pi/agent/mcp-onboarding.json
+# MCP project trust approvals (absolute paths)
+pi/agent/mcp-project-approvals.json
 
 # ── Cloned repos for git: packages (regenerable from settings.json) ──────
 pi/agent/git/
