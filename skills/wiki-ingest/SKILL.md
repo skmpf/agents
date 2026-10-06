@@ -1,6 +1,6 @@
 ---
 name: wiki-ingest
-description: Ingest content into the LLM Wiki at $WIKI_PATH (default ~/wiki). Fires on "add to wiki" and on extraction requests routed from the wiki skill (/wiki <URL> lands there first) — plain "summarize this" is the default summarize skill. Extraction layer for the wiki skill — extracts the source into raw/ with a digest header, then applies the wiki ingest under the vault's SCHEMA.md.
+description: Ingest content into the LLM Wiki at $WIKI_PATH (default ~/wiki). Fires on "add to wiki" and on extraction requests routed from the wiki skill (/wiki <URL> lands there first) — plain "summarize this" is the default summarize skill.
 user_invocable: true
 ---
 
@@ -142,7 +142,7 @@ Present two things and stop for human approval:
 1. **The digest header as written** — it is immutable once this step passes.
 2. **The page plan**: every entity/concept page to update or create, the specific claims each receives, tags, `sources:` additions, and the resulting confidence per SCHEMA's deterministic rule.
 
-No wiki writes before approval. Both depth modes pause.
+Both depth modes pause.
 
 ## Step 4: Apply the page plan
 
@@ -167,7 +167,7 @@ grep -oE '\[\[[^]|#^]+' <changed-page-paths> | sed 's/\[\[//' | sort -u
 - Books → one subagent per chapter (~5 chapters per subagent beyond 30)
 - Long content (>3,000 words) → parallel section summarization
 
-Summarization and page creation use the highest available model (minimal mode: Sonnet). Never the cheapest model for either.
+Summarization and page creation use the highest available model (minimal mode: Sonnet).
 
 Completion: every planned claim placed, every wikilink resolves, audit clean.
 
