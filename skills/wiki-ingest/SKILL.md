@@ -61,6 +61,8 @@ yt-dlp --cookies-from-browser chrome \
 
 Auto-subs exist → extract text from the JSON3 file. Otherwise download audio and transcribe (see Tools).
 
+**Pitfall — full MP4 per segment:** If yt-dlp reports multiple segments but the CDN serves the *entire* 26.5 MB file per segment, do NOT extract from each segment. The init segment alone contains the complete file. Extract audio from the full MP4 for Whisper, not per-segment.
+
 ### Web article
 
 ```bash
@@ -132,6 +134,7 @@ Per the depth table — prose, wikilinks, timestamped quotes.
 - **sha256 over the source text only** (below the digest block), so re-ingest compares like with like: recompute over the fresh extraction, skip if identical, flag drift if changed.
 - **Digest content**: `> [!tldr]` callout, then section-by-section summary per the depth table; timestamps on section headings and quotes when the source has them; actual characters for non-English words, never romanization.
 - **Wikilinks in the digest** point only at pages that exist (or that this ingest creates, after Step 3 approval) — sub-threshold mentions stay plain text. This is the one permitted write into a raw file; it happens at creation time only.
+- **Digest block boundary:** The sha256 runs from the `## Source text` line (included) to end of file — the digest header and `---` separator above it are excluded. `tools/lint.py` implements exactly this: strip frontmatter, slice from `## Source text` to EOF, hash the rest.
 
 Completion: file saved; recomputing sha256 over the source text reproduces the frontmatter value.
 
