@@ -37,6 +37,15 @@ function readAuth(): any {
   return JSON.parse(readFileSync(join(AUTH_DIR, "auth.json"), "utf-8"));
 }
 
+/** readAuth, or undefined when auth.json is missing/unreadable (treated as logged out). */
+function readAuthOrNull(): any {
+  try {
+    return readAuth();
+  } catch {
+    return undefined;
+  }
+}
+
 async function getJson(url: string, headers: Record<string, string>): Promise<any> {
   const res = await fetch(url, { headers, signal: AbortSignal.timeout(TIMEOUT_MS) });
   if (!res.ok) {
@@ -57,8 +66,9 @@ function humanDuration(ms: number): string {
 }
 
 function fmtReset(epochMs: number): string {
+  if (!Number.isFinite(epochMs)) return "?";
   const d = new Date(epochMs);
-  const time = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const time = d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", hour12: false });
   const day = d.toLocaleDateString([], { weekday: "short", month: "short", day: "numeric" });
   return `in ${humanDuration(epochMs - Date.now())} · ${day} ${time}`;
 }
@@ -72,15 +82,15 @@ function bar(pct: number): string {
 const ZAI_UNITS: Record<number, string> = { 3: "5h", 6: "Weekly" };
 
 async function fetchZai(): Promise<ProviderQuota> {
-  const key = readAuth()?.zai?.key;
-  if (!key) throw new Error("no z.ai key in auth.json (/login zai)");
+  const key = readAuthOrNull()?.zai?.key;
+  if (!key) throw new Error("not logged in — run /login zai");
   const j = await getJson(ZAI_URL, { Authorization: `Bearer ${key}` });
   if (j.code !== 200 || !Array.isArray(j.data?.limits)) throw new Error(`bad response (code ${j.code})`);
   const windows: QuotaWindow[] = j.data.limits
     .filter((l: any) => ZAI_UNITS[l.unit])
     .map((l: any) => ({
       label: ZAI_UNITS[l.unit],
-      usedPct: typeof l.percentage === "number" ? l.percentage : undefined,
+      usedPct: Number.isFinite(l.percentage) ? l.percentage : undefined,
       reset: l.nextResetTime ? fmtReset(l.nextResetTime) : "?",
     }));
   return { name: `z.ai GLM (${j.data?.level ?? "?"})`, windows };
@@ -143,8 +153,8 @@ function refreshCodex(refreshToken: string): Promise<[string, string]> {
 
 async function fetchCodex(): Promise<ProviderQuota> {
   codexWriteWarning = undefined;
-  const cred = readAuth()?.["openai-codex"];
-  if (!cred?.access || !cred?.refresh) throw new Error("no openai-codex credential (/login openai-codex)");
+  const cred = readAuthOrNull()?.["openai-codex"];
+  if (!cred?.access || !cred?.refresh) throw new Error("not logged in — run /login openai-codex");
   let access = cred.access;
   const exp = cred.expires > 0 ? cred.expires : decodeJwtExpMs(access);
   if (exp > 0 && Date.now() > exp - REFRESH_MARGIN_MS) {
@@ -156,7 +166,7 @@ async function fetchCodex(): Promise<ProviderQuota> {
   const windows: QuotaWindow[] = [];
   for (const key of ["primary_window", "secondary_window"]) {
     const w = rl[key];
-    if (!w || typeof w.used_percent !== "number") continue;
+    if (!w || !Number.isFinite(w.used_percent)) continue;
     const isFiveHour = (w.limit_window_seconds || 0) <= 6 * 3600;
     windows.push({
       label: isFiveHour ? "5h" : "Weekly",
@@ -179,11 +189,16 @@ function readClaudeOauth(): { accessToken: string; tier?: string } {
       ? execFileSync("security", ["find-generic-password", "-s", "Claude Code-credentials", "-w"],
           { encoding: "utf-8", timeout: TIMEOUT_MS, stdio: ["ignore", "pipe", "ignore"] })
       : readFileSync(join(homedir(), ".claude", ".credentials.json"), "utf-8");
-  } catch (err: any) {
-    throw new Error(`cannot read Claude Code credentials (${String(err?.message ?? err).slice(0, 80)}) — run \`claude\` and log in`);
+  } catch {
+    throw new Error("not logged in — run `claude` and log in");
   }
-  const oauth = JSON.parse(raw)?.claudeAiOauth;
-  if (!oauth?.accessToken) throw new Error("no claudeAiOauth.accessToken — run `claude` and log in");
+  let oauth: any;
+  try {
+    oauth = JSON.parse(raw)?.claudeAiOauth;
+  } catch {
+    throw new Error("stored credentials unreadable — run `claude` and log in again");
+  }
+  if (!oauth?.accessToken) throw new Error("not logged in — run `claude` and log in");
   return { accessToken: oauth.accessToken, tier: oauth.rateLimitTier ?? oauth.subscriptionType };
 }
 
@@ -203,11 +218,11 @@ async function fetchClaude(): Promise<ProviderQuota> {
   // Plans without a given window report it as null (e.g. credits-based tiers).
   for (const [key, label] of [["five_hour", "5h"], ["seven_day", "Weekly"]] as const) {
     const w = j[key];
-    if (!w || typeof w.utilization !== "number") continue;
+    if (!w || !Number.isFinite(w.utilization)) continue;
     windows.push({ label, usedPct: claudePct(w.utilization), reset: w.resets_at ? fmtReset(Date.parse(w.resets_at)) : "?" });
   }
   const eu = j.extra_usage;
-  if (eu?.is_enabled && typeof eu.utilization === "number") {
+  if (eu?.is_enabled && Number.isFinite(eu.utilization)) {
     const dp = eu.decimal_places ?? 2;
     const sym = eu.currency === "USD" ? "$" : eu.currency ? `${eu.currency} ` : "";
     const fmt = (v: number) => `${sym}${(v / 10 ** dp).toFixed(dp)}`;
@@ -225,16 +240,26 @@ async function fetchClaude(): Promise<ProviderQuota> {
 
 // ─── command ─────────────────────────────────────────────────
 async function quotaReport(): Promise<string> {
-  const names = ["z.ai", "Codex", "Claude"];
-  const results = await Promise.allSettled([fetchZai(), fetchCodex(), fetchClaude()]);
+  // name/loginHint/fetch travel together so the error hints can never misroute.
+  const providers = [
+    { name: "z.ai", loginHint: "run /login zai", fetch: fetchZai },
+    { name: "Codex", loginHint: "run /login openai-codex", fetch: fetchCodex },
+    { name: "Claude", loginHint: "run `claude` and log in", fetch: fetchClaude },
+  ];
+  const results = await Promise.allSettled(providers.map((p) => p.fetch()));
   const lines: string[] = ["Quota"];
   results.forEach((r, i) => {
+    const p = providers[i];
     if (r.status === "rejected") {
-      lines.push("", `✗ ${names[i]}: ${String(r.reason?.message ?? r.reason).slice(0, 160)}`);
+      let msg = String(r.reason?.message ?? r.reason);
+      if (/HTTP 40[013]/.test(msg)) msg = `not logged in or session expired — ${p.loginHint}`;
+      else if (msg === "fetch failed" && r.reason?.cause?.message) msg = String(r.reason.cause.message);
+      lines.push("", `✗ ${p.name}: ${msg.slice(0, 160)}`);
       return;
     }
     const q = r.value;
     lines.push("", q.name);
+    if (q.windows.length === 0) lines.push("  no quota windows reported");
     for (const w of q.windows) {
       const usage = w.usedPct !== undefined ? `${bar(w.usedPct)} ${w.usedPct}% used` : "—";
       const note = w.note ? ` (${w.note})` : "";

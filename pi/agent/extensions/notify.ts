@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 
 export default function (pi: ExtensionAPI) {
@@ -61,12 +62,55 @@ export default function (pi: ExtensionAPI) {
     },
   });
 
+  // pi-subagents exposes an in-process event-bus RPC. Track readiness so we
+  // never stall (or wait on a timeout) when pi-subagents is not installed.
+  let subagentsReady = false;
+  pi.events.on("subagents:rpc:v1:ready", () => {
+    subagentsReady = true;
+  });
+
+  // Active children (foreground + async jobs/steps) for the current session,
+  // 0 when unknown. Fails open: an error or a stalled reply means 0, so the
+  // idle ping still fires rather than going silent.
+  async function activeSubagentCount(): Promise<number> {
+    if (!subagentsReady) return 0;
+    const requestId = randomUUID();
+    return new Promise((resolve) => {
+      const unsubscribe = pi.events.on(
+        `subagents:rpc:v1:reply:${requestId}`,
+        (reply) => {
+          cleanup();
+          // Failure or missing fields both fall through to 0 (fail open).
+          const total = (reply as any)?.data?.fleet?.totalActive;
+          resolve(typeof total === "number" ? total : 0);
+        },
+      );
+      const timer = setTimeout(() => {
+        cleanup();
+        resolve(0);
+      }, 2000);
+      function cleanup() {
+        clearTimeout(timer);
+        unsubscribe();
+      }
+      pi.events.emit("subagents:rpc:v1:request", {
+        version: 1,
+        requestId,
+        method: "status",
+        params: {},
+      });
+    });
+  }
+
   // agent_settled fires only when no automatic retry, compaction recovery, or
   // queued continuation remains — the true "main agent idle" moment. No polling.
   pi.on("agent_settled", async (_event, ctx) => {
     if (!enabled) return;
     if (ctx.mode !== "tui") return; // headless rpc/json/print runs don't ping the desktop
     if (!ctx.isIdle()) return; // belt-and-braces alongside agent_settled
+    // Async subagent runs outlive the main run; their completion wakes the
+    // session and settles it again. Hold the ping until then.
+    if ((await activeSubagentCount()) > 0) return;
     await sendNf(ctx, "Pi idle");
   });
 }
