@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.1.0",
   "defaultProvider": "zai",
   "defaultModel": "glm-5.3-flash",
   "defaultThinkingLevel": "high",
@@ -10,11 +10,7 @@
     "zai/glm-5.3",
     "zai/glm-5.3-flash",
     "openai-codex/gpt-6-luna",
-    "openai-codex/gpt-6.1-sol",
-    "claude-bridge/claude-fable-5-1",
-    "claude-bridge/claude-opus-5-5",
-    "claude-bridge/claude-sonnet-5-5",
-    "claude-bridge/claude-haiku-4-5"
+    "openai-codex/gpt-6.1-sol"
   ],
   "packages": [
     "npm:pi-rtk-optimizer",
