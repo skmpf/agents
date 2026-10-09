@@ -65,6 +65,11 @@ For multi-step tasks, state a brief plan:
 
 Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
 
+## 5. Subagent Fanouts
+
+- Fan out through a script file: write `await runs.all([{ key, agent, task }, ...])` to e.g. `.scratch/fanout.js`, then call `subagent({ workflow: "./.scratch/fanout.js" })` — no fenced block or same-reply requirement.
+- Give each child everything it needs in its `task` (specs, standards, file lists); the `reviewer` agent fetches diffs itself with read-only git commands.
+
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
